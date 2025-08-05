@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Materials - Engineering Portal</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Engineering Portal</span>
+                </div>
+                <ul class="nav-menu" id="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="about.html" class="nav-link">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="materials.html" class="nav-link">Materials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="about.html#contact" class="nav-link">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link login-btn" onclick="openLoginModal()">Login</a>
+                    </li>
+                </ul>
+                <div class="hamburger" id="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Materials Hero Section -->
+    <section class="materials-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Free Study Materials</h1>
+                <p>सभी Engineering Branches के लिए Complete Study Resources</p>
+                <div class="search-container">
+                    <input type="text" id="materialSearch" placeholder="Search materials, subjects, or topics..." />
+                    <button onclick="searchMaterials(document.getElementById('materialSearch').value)">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="filters">
+                <div class="filter-group">
+                    <label>Branch:</label>
+                    <select id="branchFilter" onchange="filterByBranch()">
+                        <option value="all">All Branches</option>
+                        <option value="cse">Computer Science</option>
+                        <option value="ece">Electronics & Communication</option>
+                        <option value="me">Mechanical Engineering</option>
+                        <option value="ee">Electrical Engineering</option>
+                        <option value="ce">Civil Engineering</option>
+                        <option value="che">Chemical Engineering</option>
+                        <option value="it">Information Technology</option>
+                        <option value="aero">Aeronautical Engineering</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Type:</label>
+                    <select id="typeFilter" onchange="filterByType()">
+                        <option value="all">All Types</option>
+                        <option value="notes">Notes</option>
+                        <option value="books">Books</option>
+                        <option value="videos">Video Lectures</option>
+                        <option value="papers">Previous Papers</option>
+                        <option value="lab">Lab Manuals</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Year:</label>
+                    <select id="yearFilter" onchange="filterByYear()">
+                        <option value="all">All Years</option>
+                        <option value="1">1st Year</option>
+                        <option value="2">2nd Year</option>
+                        <option value="3">3rd Year</option>
+                        <option value="4">4th Year</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Materials Grid -->
+    <section class="materials-grid-section">
+        <div class="container">
+            <div class="materials-stats">
+                <div class="stat">
+                    <h3 id="totalMaterials">150+</h3>
+                    <p>Total Materials</p>
+                </div>
+                <div class="stat">
+                    <h3>8</h3>
+                    <p>Engineering Branches</p>
+                </div>
+                <div class="stat">
+                    <h3>50+</h3>
+                    <p>Subjects Covered</p>
+                </div>
+            </div>
+
+            <div id="materialsContainer" class="materials-grid">
+                <!-- Materials will be loaded here dynamically -->
+            </div>
+
+            <div class="load-more">
+                <button id="loadMoreBtn" class="btn btn-primary" onclick="loadMoreMaterials()">
+                    Load More Materials
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Downloads -->
+    <section class="popular-downloads">
+        <div class="container">
+            <h2>Popular Downloads This Week</h2>
+            <div class="popular-grid" id="popularGrid">
+                <!-- Popular items will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Engineering Portal</h3>
+                    <p>Free Education for All Engineering Students</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Study Materials</h4>
+                    <ul>
+                        <li><a href="#">Engineering Mathematics</a></li>
+                        <li><a href="#">Programming & DSA</a></li>
+                        <li><a href="#">Digital Electronics</a></li>
+                        <li><a href="#">Thermodynamics</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Access</h4>
+                    <ul>
+                        <li><a href="#">Notes</a></li>
+                        <li><a href="#">Video Lectures</a></li>
+                        <li><a href="#">Previous Papers</a></li>
+                        <li><a href="#">Lab Manuals</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Engineering Portal. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Login</h2>
+                <span class="close" onclick="closeLoginModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="auth-container">
+                    <div class="auth-tabs">
+                        <button class="tab-btn active" onclick="showLogin()">Login</button>
+                        <button class="tab-btn" onclick="showRegister()">Register</button>
+                    </div>
+                    
+                    <form id="loginForm" class="auth-form">
+                        <input type="email" placeholder="Email" required>
+                        <input type="password" placeholder="Password" required>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                    
+                    <form id="registerForm" class="auth-form" style="display: none;">
+                        <input type="text" placeholder="Full Name" required>
+                        <input type="email" placeholder="Email" required>
+                        <input type="tel" placeholder="Phone Number" required>
+                        <select required>
+                            <option value="">Select Branch</option>
+                            <option value="cse">Computer Science</option>
+                            <option value="ece">Electronics & Communication</option>
+                            <option value="ee">Electrical Engineering</option>
+                            <option value="me">Mechanical Engineering</option>
+                            <option value="ce">Civil Engineering</option>
+                            <option value="che">Chemical Engineering</option>
+                        </select>
+                        <input type="password" placeholder="Password" required>
+                        <input type="password" placeholder="Confirm Password" required>
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Extended materials data for this page
+        const allMaterials = [
+            // First Year Common Subjects
+            {
+                id: 1,
+                title: 'Engineering Mathematics I',
+                subject: 'Mathematics',
+                branch: 'all',
+                year: 1,
+                type: 'notes',
+                icon: 'fas fa-calculator',
+                description: 'Calculus, Differential Equations, Linear Algebra',
+                downloads: 1250,
+                rating: 4.8,
+                size: '15.2 MB',
+                links: [
+                    { name: 'Complete Notes PDF', url: 'https://nptel.ac.in/courses/111/105/111105041/', type: 'pdf' },
+                    { name: 'Video Lectures', url: 'https://www.youtube.com/playlist?list=PLU6SqdYcYsfI_yJd7I0v6qOKmM_qG4hUz', type: 'video' },
+                    { name: 'Practice Problems', url: '#', type: 'pdf' },
+                    { name: 'Previous Year Papers', url: '#', type: 'pdf' }
+                ]
+            },
+            {
+                id: 2,
+                title: 'Engineering Physics',
+                subject: 'Physics',
+                branch: 'all',
+                year: 1,
+                type: 'books',
+                icon: 'fas fa-atom',
+                description: 'Mechanics, Waves, Optics, Modern Physics',
+                downloads: 980,
+                rating: 4.6,
+                size: '22.8 MB',
+                links: [
+                    { name: 'Complete Textbook', url: 'https://nptel.ac.in/courses/122/105/122105036/', type: 'pdf' },
+                    { name: 'Lab Manual', url: '#', type: 'pdf' },
+                    { name: 'Solved Examples', url: '#', type: 'pdf' },
+                    { name: 'Mock Tests', url: '#', type: 'quiz' }
+                ]
+            },
+            {
+                id: 3,
+                title: 'Programming in C',
+                subject: 'Programming',
+                branch: 'all',
+                year: 1,
+                type: 'videos',
+                icon: 'fab fa-cuttlefish',
+                description: 'C Programming Fundamentals, Data Structures',
+                downloads: 2150,
+                rating: 4.9,
+                size: '45.6 MB',
+                links: [
+                    { name: 'Complete Course Videos', url: 'https://www.youtube.com/playlist?list=PLkz7LpP7HI4g_fhcTGVzr5jjmpHtMjyHL', type: 'video' },
+                    { name: 'C Programming Notes', url: 'https://www.geeksforgeeks.org/c-programming-language/', type: 'web' },
+                    { name: 'Practice Programs', url: 'https://www.hackerrank.com/domains/c', type: 'web' },
+                    { name: 'Lab Exercises', url: '#', type: 'pdf' }
+                ]
+            },
+
+            // Computer Science Materials
+            {
+                id: 4,
+                title: 'Data Structures & Algorithms',
+                subject: 'DSA',
+                branch: 'cse',
+                year: 2,
+                type: 'notes',
+                icon: 'fas fa-sitemap',
+                description: 'Arrays, Linked Lists, Trees, Graphs, Sorting',
+                downloads: 3200,
+                rating: 4.9,
+                size: '38.4 MB',
+                links: [
+                    { name: 'Complete DSA Notes', url: 'https://www.geeksforgeeks.org/data-structures/', type: 'web' },
+                    { name: 'Video Lectures', url: 'https://www.youtube.com/playlist?list=PLdo5W4Nhv31bbKJzrsKfMpo_grxuLl8LU', type: 'video' },
+                    { name: 'Coding Practice', url: 'https://leetcode.com/', type: 'web' },
+                    { name: 'Previous Papers', url: '#', type: 'pdf' }
+                ]
+            },
+            {
+                id: 5,
+                title: 'Database Management Systems',
+                subject: 'DBMS',
+                branch: 'cse',
+                year: 3,
+                type: 'books',
+                icon: 'fas fa-database',
+                description: 'SQL, Normalization, Transactions, Indexing',
+                downloads: 1850,
+                rating: 4.7,
+                size: '28.9 MB',
+                links: [
+                    { name: 'DBMS Textbook', url: 'https://nptel.ac.in/courses/106/106/106106093/', type: 'pdf' },
+                    { name: 'SQL Practice', url: 'https://www.w3schools.com/sql/', type: 'web' },
+                    { name: 'Lab Manual', url: '#', type: 'pdf' },
+                    { name: 'Interview Questions', url: '#', type: 'pdf' }
+                ]
+            },
+
+            // Electronics Materials
+            {
+                id: 6,
+                title: 'Digital Electronics',
+                subject: 'Digital Circuits',
+                branch: 'ece',
+                year: 2,
+                type: 'notes',
+                icon: 'fas fa-microchip',
+                description: 'Boolean Algebra, Logic Gates, Sequential Circuits',
+                downloads: 1650,
+                rating: 4.6,
+                size: '31.2 MB',
+                links: [
+                    { name: 'Digital Electronics Notes', url: 'https://nptel.ac.in/courses/108/106/108106165/', type: 'pdf' },
+                    { name: 'Circuit Simulations', url: '#', type: 'software' },
+                    { name: 'Lab Experiments', url: '#', type: 'pdf' },
+                    { name: 'Previous Papers', url: '#', type: 'pdf' }
+                ]
+            },
+
+            // Mechanical Materials
+            {
+                id: 7,
+                title: 'Thermodynamics',
+                subject: 'Thermal Engineering',
+                branch: 'me',
+                year: 2,
+                type: 'videos',
+                icon: 'fas fa-fire',
+                description: 'Laws of Thermodynamics, Heat Engines, Entropy',
+                downloads: 1420,
+                rating: 4.5,
+                size: '52.1 MB',
+                links: [
+                    { name: 'Video Lectures', url: 'https://nptel.ac.in/courses/112/103/112103266/', type: 'video' },
+                    { name: 'Problem Solutions', url: '#', type: 'pdf' },
+                    { name: 'Lab Manual', url: '#', type: 'pdf' },
+                    { name: 'Formula Sheet', url: '#', type: 'pdf' }
+                ]
+            },
+
+            // Add more materials as needed...
+        ];
+
+        let displayedMaterials = 0;
+        const materialsPerPage = 9;
+        let filteredMaterials = [...allMaterials];
+
+        // Load materials on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadMaterials();
+            loadPopularDownloads();
+        });
+
+        function loadMaterials() {
+            const container = document.getElementById('materialsContainer');
+            const materialsToShow = filteredMaterials.slice(displayedMaterials, displayedMaterials + materialsPerPage);
+            
+            materialsToShow.forEach(material => {
+                const materialCard = createMaterialCard(material);
+                container.appendChild(materialCard);
+            });
+            
+            displayedMaterials += materialsToShow.length;
+            
+            // Hide load more button if all materials are loaded
+            if (displayedMaterials >= filteredMaterials.length) {
+                document.getElementById('loadMoreBtn').style.display = 'none';
+            }
+        }
+
+        function createMaterialCard(material) {
+            const card = document.createElement('div');
+            card.className = 'material-card-detailed';
+            card.innerHTML = `
+                <div class="material-header">
+                    <div class="material-icon">
+                        <i class="${material.icon}"></i>
+                    </div>
+                    <div class="material-info">
+                        <h3>${material.title}</h3>
+                        <p class="material-subject">${material.subject}</p>
+                        <div class="material-meta">
+                            <span class="branch-tag">${getBranchName(material.branch)}</span>
+                            <span class="year-tag">Year ${material.year}</span>
+                            <span class="type-tag">${material.type}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="material-description">
+                    <p>${material.description}</p>
+                </div>
+                <div class="material-stats">
+                    <div class="stat">
+                        <i class="fas fa-download"></i>
+                        <span>${material.downloads}</span>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-star"></i>
+                        <span>${material.rating}</span>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-file"></i>
+                        <span>${material.size}</span>
+                    </div>
+                </div>
+                <div class="material-links">
+                    ${material.links.map(link => `
+                        <a href="${link.url}" target="_blank" class="material-link">
+                            <i class="${getLinkIcon(link.type)}"></i>
+                            <span>${link.name}</span>
+                        </a>
+                    `).join('')}
+                </div>
+            `;
+            return card;
+        }
+
+        function getBranchName(branch) {
+            const branches = {
+                'all': 'All Branches',
+                'cse': 'CSE',
+                'ece': 'ECE',
+                'me': 'ME',
+                'ee': 'EE',
+                'ce': 'CE',
+                'che': 'CHE',
+                'it': 'IT',
+                'aero': 'AERO'
+            };
+            return branches[branch] || branch.toUpperCase();
+        }
+
+        function getLinkIcon(type) {
+            const icons = {
+                'pdf': 'fas fa-file-pdf',
+                'video': 'fab fa-youtube',
+                'web': 'fas fa-globe',
+                'software': 'fas fa-download',
+                'quiz': 'fas fa-question-circle'
+            };
+            return icons[type] || 'fas fa-link';
+        }
+
+        function filterByBranch() {
+            const branch = document.getElementById('branchFilter').value;
+            applyFilters();
+        }
+
+        function filterByType() {
+            const type = document.getElementById('typeFilter').value;
+            applyFilters();
+        }
+
+        function filterByYear() {
+            const year = document.getElementById('yearFilter').value;
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const branch = document.getElementById('branchFilter').value;
+            const type = document.getElementById('typeFilter').value;
+            const year = document.getElementById('yearFilter').value;
+            
+            filteredMaterials = allMaterials.filter(material => {
+                const branchMatch = branch === 'all' || material.branch === branch || material.branch === 'all';
+                const typeMatch = type === 'all' || material.type === type;
+                const yearMatch = year === 'all' || material.year.toString() === year;
+                
+                return branchMatch && typeMatch && yearMatch;
+            });
+            
+            // Reset display
+            document.getElementById('materialsContainer').innerHTML = '';
+            displayedMaterials = 0;
+            document.getElementById('loadMoreBtn').style.display = 'block';
+            
+            loadMaterials();
+            updateMaterialsCount();
+        }
+
+        function searchMaterials(query) {
+            if (!query) {
+                filteredMaterials = [...allMaterials];
+            } else {
+                filteredMaterials = allMaterials.filter(material => 
+                    material.title.toLowerCase().includes(query.toLowerCase()) ||
+                    material.subject.toLowerCase().includes(query.toLowerCase()) ||
+                    material.description.toLowerCase().includes(query.toLowerCase())
+                );
+            }
+            
+            // Reset display
+            document.getElementById('materialsContainer').innerHTML = '';
+            displayedMaterials = 0;
+            document.getElementById('loadMoreBtn').style.display = 'block';
+            
+            loadMaterials();
+            updateMaterialsCount();
+        }
+
+        function loadMoreMaterials() {
+            loadMaterials();
+        }
+
+        function updateMaterialsCount() {
+            document.getElementById('totalMaterials').textContent = filteredMaterials.length + '+';
+        }
+
+        function loadPopularDownloads() {
+            const popularGrid = document.getElementById('popularGrid');
+            const popularMaterials = allMaterials
+                .sort((a, b) => b.downloads - a.downloads)
+                .slice(0, 6);
+            
+            popularMaterials.forEach(material => {
+                const card = document.createElement('div');
+                card.className = 'popular-card';
+                card.innerHTML = `
+                    <div class="popular-icon">
+                        <i class="${material.icon}"></i>
+                    </div>
+                    <h4>${material.title}</h4>
+                    <p>${material.downloads} downloads</p>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <span>${material.rating}</span>
+                    </div>
+                `;
+                popularGrid.appendChild(card);
+            });
+        }
+
+        // Search on Enter key
+        document.getElementById('materialSearch').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchMaterials(this.value);
+            }
+        });
+    </script>
+    
+    <style>
+        .materials-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8rem 0 4rem;
+            text-align: center;
+        }
+
+        .materials-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .search-container {
+            display: flex;
+            max-width: 600px;
+            margin: 2rem auto 0;
+            background: white;
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .search-container input {
+            flex: 1;
+            padding: 1rem 2rem;
+            border: none;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-container button {
+            padding: 1rem 2rem;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .search-container button:hover {
+            background: #ff5252;
+        }
+
+        .filter-section {
+            background: #f8f9fa;
+            padding: 2rem 0;
+        }
+
+        .filters {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .filter-group select {
+            padding: 0.8rem;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            background: white;
+            min-width: 150px;
+            font-size: 1rem;
+        }
+
+        .materials-grid-section {
+            padding: 3rem 0;
+        }
+
+        .materials-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .materials-stats .stat {
+            text-align: center;
+        }
+
+        .materials-stats h3 {
+            font-size: 2.5rem;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .materials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .material-card-detailed {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .material-card-detailed:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .material-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .material-icon i {
+            font-size: 2.5rem;
+        }
+
+        .material-info h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .material-subject {
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+
+        .material-meta {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .branch-tag, .year-tag, .type-tag {
+            background: rgba(255,255,255,0.2);
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+        }
+
+        .material-description {
+            padding: 1rem 1.5rem;
+            color: #666;
+        }
+
+        .material-stats {
+            display: flex;
+            justify-content: space-around;
+            padding: 1rem 1.5rem;
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .material-stats .stat {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .material-links {
+            padding: 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+        }
+
+        .material-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .material-link:hover {
+            background: #667eea;
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .load-more {
+            text-align: center;
+        }
+
+        .popular-downloads {
+            background: #f8f9fa;
+            padding: 3rem 0;
+        }
+
+        .popular-downloads h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+
+        .popular-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .popular-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .popular-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .popular-icon {
+            font-size: 2rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .popular-card h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .popular-card p {
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .rating {
+            color: #ff6b6b;
+        }
+
+        @media (max-width: 768px) {
+            .materials-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .filters {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .materials-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .materials-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .material-links {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-container {
+                margin: 1rem;
+            }
+        }
+    </style>
+</body>
+</html>
